@@ -16,19 +16,18 @@ namespace FourthApp
             stack.Pop();
             stack.Pop();
             stack.Pop();
-            //Тут действие для демонстрации возврата null при попыытке извлечения из пустого стэка
+            //Тут действие для демонстрации возврата null при попытке извлечения из пустого стэка
             //Console.WriteLine($"size = {stack.Size}, Top = {(stack.Top == null ? "null" : stack.Top)}");
             stack.Add("0", "1", "2", "3");
             Stack s1 = new Stack("1", "2", "3");
-            Stack s2 = new Stack("1", "2", "3");
-            stack.Merge(s1, s2);
-            var t = s1.Size;
-            for (int i = 0; i < t; i++)
-            {
-                Console.WriteLine($"{s1.Pop()}");
-            }
-            
-            
+            Stack s2 = new Stack("a", "b", "c");
+           var stackMerge = stack.Merge(s1, s2);
+            Stack s3 = new Stack("a", "b", "c");
+            Stack s4 = new Stack("1", "2", "3");
+            Stack s5 = new Stack("А", "Б", "В");
+            Console.WriteLine($"");
+            var stacksConcat = Stack.Concat(s3 , s4 , s5 );
+
         }
     }
 }

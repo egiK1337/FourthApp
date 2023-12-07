@@ -41,7 +41,6 @@ namespace FourthApp
             {
                 StrList.Add(item);
             }
-
         }
         public string Pop()
         {          
@@ -52,6 +51,19 @@ namespace FourthApp
             var str = StrList[StrList.Count - 1];
             StrList.RemoveAt(StrList.Count-1);
             return str;
+        }
+        public static Stack Concat(params Stack[] stck)
+        {
+            var s = new Stack();
+            foreach (var item in stck) 
+            {
+                var count = item.Size;
+                for (int i = 0; i < count; i++)
+                {
+                    s.Add(item.Pop());
+                }
+            }
+            return s;
         }
     }
 }
