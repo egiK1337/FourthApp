@@ -3,24 +3,14 @@ namespace FourthApp
 {
     public class Stack
     {
-        public List<String> StrList { get; private set; } = new List<String>();
-        public int? Size
-        {
-            get
-            {
-                return StrList.Count;
-            }
-            private set
-            {
-            }
-        }
+        public int Size { get; set; }
         public string? Top
         {
             get
             {
-                if (StrList.Count > 0)
+                if (_top != null)
                 {
-                    return StrList[StrList.Count-1];
+                    return _top.Value;
                 }
                 return null;
             }
@@ -28,42 +18,72 @@ namespace FourthApp
             {
             }
         }
+        private StackItem _top;
+
         public Stack(params string[] str)
         {
             foreach (string item in str)
             {
-                StrList.Add(item);
+                var temp = _top;
+                var newTop = new StackItem(item);
+                newTop.Previous = temp;
+                _top = newTop;
+                Size++;
             }
+            Top = _top.Value;
         }
-        public void Add(params string[] str)
+        public Stack() 
+        { 
+        }
+        public void Add(string value)
         {
-            foreach (string item in str)
+            if (_top == null)
             {
-                StrList.Add(item);
+                _top = new StackItem(value);
+                Size++;
+            }
+            else
+            {
+                var temp = _top;
+                var newTop = new StackItem(value);
+                newTop.Previous = temp;
+                _top = newTop;
+                Size++;
             }
         }
         public string Pop()
-        {          
-            if (StrList.Count <= 0)
+        {
+            Size--;
+            if (Size == -1)
             {
                 throw new Exception("Стек пустой");
             }
-            var str = StrList[StrList.Count - 1];
-            StrList.RemoveAt(StrList.Count-1);
-            return str;
+            var temp = _top.Value;
+            _top = _top.Previous;
+            return temp;
         }
         public static Stack Concat(params Stack[] stck)
         {
-            var s = new Stack();
-            foreach (var item in stck) 
+            var stk = new Stack();
+            foreach (var item in stck)
             {
-                var count = item.Size;
+                var temp = item;
+                var count = temp.Size;
                 for (int i = 0; i < count; i++)
                 {
-                    s.Add(item.Pop());
+                    stk.Add(temp.Pop());
                 }
             }
-            return s;
+            return stk;
+        }
+        private sealed class StackItem
+        {
+            public string Value { get; set; }
+            public StackItem? Previous { get; set; }
+            public StackItem(string value)
+            {
+                Value = value;
+            }
         }
     }
 }

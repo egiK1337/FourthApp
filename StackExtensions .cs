@@ -1,7 +1,7 @@
 ﻿
 namespace FourthApp
 {
-    public static class StackExtensions
+    public static class StackExtensions 
     {
         public static Stack Merge(this Stack stck, Stack s1, Stack s2)
         {
@@ -10,7 +10,7 @@ namespace FourthApp
             {
                 s1.Add(s2.Pop());
             }
-                return s1;
+            return s1;
         }
     }
 }
